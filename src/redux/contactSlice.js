@@ -6,6 +6,8 @@ export const contactSlice = createSlice({
   initialState: initialState.contacts,
   reducers: {
     createUser: (state, action) => {
+      console.log(state);
+      console.log(action);
       state.push(action.payload);
     },
     deleteUser: (state, action) => {

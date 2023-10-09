@@ -1,8 +1,13 @@
+import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createUser } from 'redux/contactSlice';
 
-export default function Form({ createUser }) {
+export default function Form() {
   const [name, setName] = useState('');
   const [number, setNamber] = useState('');
+
+  const dispatch = useDispatch();
 
   const handleGhange = e => {
     switch (e.target.name) {
@@ -18,7 +23,7 @@ export default function Form({ createUser }) {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    createUser({ name, number });
+    dispatch(createUser({ name, number, id: nanoid(5) }));
     setName('');
     setNamber('');
   };
