@@ -1,11 +1,14 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from 'redux/contactSlice';
+import { selectContacts } from 'redux/selector';
 
 export default function Form() {
   const [name, setName] = useState('');
   const [number, setNamber] = useState('');
+  const contacts = useSelector(selectContacts);
+  console.log(contacts);
 
   const dispatch = useDispatch();
 
@@ -23,6 +26,10 @@ export default function Form() {
   };
   const handleSubmit = e => {
     e.preventDefault();
+    if (contacts.find(el => el.name === name)) {
+      alert(name + ' is already in contacts.');
+      return;
+    }
     dispatch(createUser({ name, number, id: nanoid(5) }));
     setName('');
     setNamber('');
